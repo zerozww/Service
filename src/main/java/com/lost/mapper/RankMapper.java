@@ -2,6 +2,8 @@ package com.lost.mapper;
 
 import com.lost.entity.Rank;
 
+import java.util.List;
+
 public interface RankMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,8 @@ public interface RankMapper {
     int updateByPrimaryKeySelective(Rank record);
 
     int updateByPrimaryKey(Rank record);
+
+    List<Rank> findAll();
+
+    Rank findByUserId(Integer userId);
 }

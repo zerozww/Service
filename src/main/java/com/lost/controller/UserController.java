@@ -1,5 +1,6 @@
 package com.lost.controller;
 
+import com.lost.entity.UserInfo;
 import com.lost.service.UserInfoService;
 import com.lost.utils.response.ResponseWrapper;
 import org.apache.shiro.SecurityUtils;
@@ -29,7 +30,7 @@ public class UserController {
     public ResponseWrapper login(@RequestParam Map<String, Object> params){
         ResponseWrapper response = null;
 
-        if (params.get("username") == null || params.get("password") == null || params.get("username") == "" || params.get("password") == ""){
+        if (params.get("username") == null || params.get("password") == null || params.get("username").toString() == "" || params.get("password").toString() == ""){
             response = ResponseWrapper.markDefault(411, "用户名或密码不能为空");
             return response;
         }
@@ -67,7 +68,7 @@ public class UserController {
     @RequestMapping("/register")
     public ResponseWrapper register(@RequestParam Map<String, Object> params){
         ResponseWrapper response = null;
-        if (params.get("username") == null || params.get("password") == null || params.get("username") == "" || params.get("password") == ""){
+        if (params.get("username") == null || params.get("password") == null || params.get("username").toString() == "" || params.get("password").toString() == ""){
             response = ResponseWrapper.markDefault(421, "用户名或密码不能为空");
             return response;
         }
@@ -92,6 +93,56 @@ public class UserController {
         ResponseWrapper response = null;
 
         response = ResponseWrapper.markApiNotPermission();
+        return response;
+    }
+
+    /**
+     * 获取个人详细信息
+     * @return
+     */
+    @RequestMapping("/get-userinfo")
+    public ResponseWrapper getUserInfo(){
+        ResponseWrapper response = null;
+
+        String username = (String) SecurityUtils.getSubject().getPrincipal();
+        response = ResponseWrapper.markSuccess();
+        response.setExtra("user", userInfoService.getByUsername(username));
+        return response;
+    }
+
+    /**
+     * 更改密码
+     * @param params
+     * @return
+     */
+    @RequestMapping("/set-password")
+    public ResponseWrapper setPassword(@RequestParam Map<String, Object> params){
+        ResponseWrapper response = null;
+
+        String username = (String) SecurityUtils.getSubject().getPrincipal();
+        userInfoService.setPassword(username, params.get("password").toString());
+        response = ResponseWrapper.markSuccess();
+        return response;
+    }
+
+    /**
+     * 更新用户信息
+     * @param params
+     * @return
+     */
+    @RequestMapping("/set-userinfo")
+    public ResponseWrapper setUserinfo(@RequestParam Map<String, Object> params){
+        ResponseWrapper response = null;
+
+        String username = (String) SecurityUtils.getSubject().getPrincipal();
+        UserInfo userInfo = userInfoService.getByUsername(username);
+        userInfo.setNickname(params.get("nickname").toString());
+        userInfo.setSex(params.get("sex").toString());
+        userInfo.setTelephone(params.get("telephone").toString());
+        userInfo.setSignature(params.get("signature").toString());
+        userInfoService.updateUserInfo(userInfo);
+
+        response = ResponseWrapper.markSuccess();
         return response;
     }
 

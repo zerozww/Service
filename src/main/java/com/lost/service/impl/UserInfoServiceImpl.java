@@ -21,6 +21,11 @@ public class UserInfoServiceImpl implements UserInfoService {
         return userInfoMapper.findAll();
     }
 
+    @Override
+    public UserInfo findById(Integer id){
+        return userInfoMapper.selectByPrimaryKey(id);
+    }
+
 
     @Override
     public void insert(Map<String, Object> params){
@@ -51,6 +56,25 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public Boolean hasExist(String username){
         return userInfoMapper.getByUsername(username) != null;
+    }
+
+    @Override
+    public UserInfo getByUsername(String username){
+        return userInfoMapper.getByUsername(username);
+    }
+
+    @Override
+    public void setPassword(String username, String password){
+        UserInfo userInfo = userInfoMapper.getByUsername(username);
+        //MD5加密
+        Md5Hash md5Hash = new Md5Hash(password);
+        userInfo.setPassword(md5Hash.toHex());
+        userInfoMapper.updateByPrimaryKeySelective(userInfo);
+    }
+
+    @Override
+    public void updateUserInfo(UserInfo userInfo){
+        userInfoMapper.updateByPrimaryKeySelective(userInfo);
     }
 
 }

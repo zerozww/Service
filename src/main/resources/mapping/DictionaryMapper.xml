@@ -10,6 +10,11 @@
   <sql id="Base_Column_List">
     id, code, dict_name, code_type
   </sql>
+
+  <select id="findByTypeCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from dictionary where code_type = #{codeType}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

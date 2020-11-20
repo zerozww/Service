@@ -9,6 +9,15 @@
   <sql id="Base_Column_List">
     id, user_id, count
   </sql>
+
+  <select id="findAll" resultMap="BaseResultMap">
+    select * from rank order by count desc
+  </select>
+
+  <select id="findByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from rank where user_id = #{userId}
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
