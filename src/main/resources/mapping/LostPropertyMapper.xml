@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lost.mapper.LostPropertyMapper">
+  <resultMap id="BaseResultMap" type="com.lost.entity.LostProperty">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="tag" jdbcType="VARCHAR" property="tag" />
+    <result column="x_axis" jdbcType="VARCHAR" property="xAxis" />
+    <result column="y_axis" jdbcType="VARCHAR" property="yAxis" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_id, title, category, detail, icon, tag, x_axis, y_axis
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from lostProperty
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from lostProperty
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lost.entity.LostProperty">
+    insert into lostProperty (id, user_id, title, 
+      category, detail, icon, 
+      tag, x_axis, y_axis)
+    values (#{id,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{tag,jdbcType=VARCHAR}, #{xAxis,jdbcType=VARCHAR}, #{yAxis,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lost.entity.LostProperty">
+    insert into lostProperty
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="detail != null">
+        detail,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="tag != null">
+        tag,
+      </if>
+      <if test="xAxis != null">
+        x_axis,
+      </if>
+      <if test="yAxis != null">
+        y_axis,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="xAxis != null">
+        #{xAxis,jdbcType=VARCHAR},
+      </if>
+      <if test="yAxis != null">
+        #{yAxis,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lost.entity.LostProperty">
+    update lostProperty
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="tag != null">
+        tag = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="xAxis != null">
+        x_axis = #{xAxis,jdbcType=VARCHAR},
+      </if>
+      <if test="yAxis != null">
+        y_axis = #{yAxis,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lost.entity.LostProperty">
+    update lostProperty
+    set user_id = #{userId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      tag = #{tag,jdbcType=VARCHAR},
+      x_axis = #{xAxis,jdbcType=VARCHAR},
+      y_axis = #{yAxis,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
