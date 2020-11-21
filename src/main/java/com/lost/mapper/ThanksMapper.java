@@ -2,6 +2,8 @@ package com.lost.mapper;
 
 import com.lost.entity.Thanks;
 
+import java.util.List;
+
 public interface ThanksMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,6 @@ public interface ThanksMapper {
     int updateByPrimaryKeySelective(Thanks record);
 
     int updateByPrimaryKey(Thanks record);
+
+    List<Thanks> findAll();
 }

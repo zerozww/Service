@@ -11,6 +11,8 @@ public class Thanks {
 
     private Integer userId;
 
+    private String nickName;
+
     private Date createTime;
 
     public Integer getId() {
@@ -51,5 +53,13 @@ public class Thanks {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 }
