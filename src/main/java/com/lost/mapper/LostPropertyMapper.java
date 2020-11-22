@@ -2,6 +2,8 @@ package com.lost.mapper;
 
 import com.lost.entity.LostProperty;
 
+import java.util.List;
+
 public interface LostPropertyMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +16,8 @@ public interface LostPropertyMapper {
     int updateByPrimaryKeySelective(LostProperty record);
 
     int updateByPrimaryKey(LostProperty record);
+
+    List<LostProperty> findAll();
+
+    List<LostProperty> findAllUnfinishedLost();
 }

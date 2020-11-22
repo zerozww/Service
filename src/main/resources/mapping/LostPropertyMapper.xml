@@ -15,6 +15,16 @@
   <sql id="Base_Column_List">
     id, user_id, title, category, detail, icon, tag, x_axis, y_axis
   </sql>
+
+  <select id="findAll" resultMap="BaseResultMap">
+    select * from lostProperty
+  </select>
+
+  <select id="findAllUnfinishedLost" resultMap="BaseResultMap">
+    select * from lostProperty
+    where tag = "0"
+  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

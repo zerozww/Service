@@ -19,6 +19,8 @@ public class LostProperty {
 
     private String yAxis;
 
+    private String nickName;
+
     public Integer getId() {
         return id;
     }
@@ -89,5 +91,13 @@ public class LostProperty {
 
     public void setyAxis(String yAxis) {
         this.yAxis = yAxis == null ? null : yAxis.trim();
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 }
