@@ -3,7 +3,7 @@
 <mapper namespace="com.lost.mapper.UserInfoMapper">
   <resultMap id="BaseResultMap" type="com.lost.entity.UserInfo">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="username" jdbcType="VARCHAR" property="userName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
@@ -12,11 +12,15 @@
     <result column="icon" jdbcType="VARCHAR" property="icon" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, user_name, password, nickname, sex, telephone, signature, icon
+    id, username, password, nickname, sex, telephone, signature, icon
   </sql>
 
   <select id="findAll" resultType="com.lost.entity.UserInfo">
     select * from userInfo
+  </select>
+
+  <select id="getByUsername" parameterType="java.lang.String" resultType="com.lost.entity.UserInfo">
+    select * from userInfo where username = #{username}
   </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -30,7 +34,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.lost.entity.UserInfo">
-    insert into userInfo (id, user_name, password, 
+    insert into userInfo (id, username, password, 
       nickname, sex, telephone, 
       signature, icon)
     values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
@@ -40,11 +44,8 @@
   <insert id="insertSelective" parameterType="com.lost.entity.UserInfo">
     insert into userInfo
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="userName != null">
-        user_name,
+        username,
       </if>
       <if test="password != null">
         password,
@@ -66,9 +67,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
       </if>
@@ -96,7 +94,7 @@
     update userInfo
     <set>
       <if test="userName != null">
-        user_name = #{userName,jdbcType=VARCHAR},
+        username = #{userName,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
@@ -121,7 +119,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.lost.entity.UserInfo">
     update userInfo
-    set user_name = #{userName,jdbcType=VARCHAR},
+    set username = #{userName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},

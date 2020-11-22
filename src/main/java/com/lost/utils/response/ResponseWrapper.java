@@ -47,7 +47,7 @@ public class ResponseWrapper {
         return responseWrapper;
     }
 
-    /**
+    /**ACCOUNT_ERROR
      * 操作成功，但记录已存在
      */
     public static ResponseWrapper markDataExisted(){
@@ -79,7 +79,7 @@ public class ResponseWrapper {
     }
 
     /**
-     * 查询失败
+     * 账号或密码错误
      */
     public static ResponseWrapper markACCOUNT_ERROR(){
         ResponseWrapper responseWrapper = new ResponseWrapper();

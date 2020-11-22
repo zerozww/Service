@@ -18,4 +18,6 @@ public interface UserInfoMapper {
     int updateByPrimaryKey(UserInfo record);
 
     List<UserInfo> findAll();
+
+    UserInfo getByUsername(String username);
 }

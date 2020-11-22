@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lost.mapper.DictionaryMapper">
+  <resultMap id="BaseResultMap" type="com.lost.entity.Dictionary">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="dict_name" jdbcType="VARCHAR" property="dictName" />
+    <result column="code_type" jdbcType="VARCHAR" property="codeType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, code, dict_name, code_type
+  </sql>
+
+  <select id="findByTypeCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from dictionary where code_type = #{codeType}
+  </select>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dictionary
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dictionary
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.lost.entity.Dictionary">
+    insert into dictionary (id, code, dict_name, 
+      code_type)
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{dictName,jdbcType=VARCHAR}, 
+      #{codeType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lost.entity.Dictionary">
+    insert into dictionary
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="dictName != null">
+        dict_name,
+      </if>
+      <if test="codeType != null">
+        code_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="dictName != null">
+        #{dictName,jdbcType=VARCHAR},
+      </if>
+      <if test="codeType != null">
+        #{codeType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lost.entity.Dictionary">
+    update dictionary
+    <set>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="dictName != null">
+        dict_name = #{dictName,jdbcType=VARCHAR},
+      </if>
+      <if test="codeType != null">
+        code_type = #{codeType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lost.entity.Dictionary">
+    update dictionary
+    set code = #{code,jdbcType=VARCHAR},
+      dict_name = #{dictName,jdbcType=VARCHAR},
+      code_type = #{codeType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
