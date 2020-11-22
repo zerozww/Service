@@ -2,6 +2,7 @@ package com.lost.controller;
 
 import com.lost.entity.UserInfo;
 import com.lost.service.UserInfoService;
+import com.lost.utils.FileUtil;
 import com.lost.utils.response.ResponseWrapper;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -9,10 +10,14 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 @RestController
@@ -20,6 +25,7 @@ import java.util.Map;
 public class UserController {
     @Autowired
     UserInfoService userInfoService;
+
 
     /**
      * 登录方法
@@ -146,4 +152,38 @@ public class UserController {
         return response;
     }
 
+    @RequestMapping("/picture")
+    public ResponseWrapper uploadImg(@RequestParam("icon") MultipartFile file) {
+        ResponseWrapper response = null;
+
+        String username = (String) SecurityUtils.getSubject().getPrincipal();
+        UserInfo userInfo = userInfoService.getByUsername(username);
+
+        String fileName = file.getOriginalFilename();
+        //设置文件上传路径
+        String filePath = getUploadPath();
+        try {
+            String fullPathName = FileUtil.uploadFile(file.getBytes(), filePath, fileName);
+            userInfo.setIcon(fullPathName);
+            userInfoService.updateUserInfo(userInfo);
+            response = ResponseWrapper.markSuccess();
+            return response;
+        } catch (Exception e) {
+            response = ResponseWrapper.markError();
+            return response;
+        }
+    }
+
+    private String getUploadPath() {
+        File path = null;
+        try {
+            path = new File(ResourceUtils.getURL("classpath:").getPath());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        if (!path.exists()) path = new File("");
+        File upload = new File(path.getAbsolutePath(), "static/picture/");
+        if (!upload.exists()) upload.mkdirs();
+        return upload.getAbsolutePath();
+    }
 }
