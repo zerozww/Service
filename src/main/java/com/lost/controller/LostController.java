@@ -1,8 +1,10 @@
 package com.lost.controller;
 
 
+import com.lost.entity.Dictionary;
 import com.lost.entity.LostProperty;
 import com.lost.entity.UserInfo;
+import com.lost.service.DictService;
 import com.lost.service.LostService;
 import com.lost.service.UserInfoService;
 import com.lost.utils.response.ResponseWrapper;
@@ -25,6 +27,9 @@ public class LostController {
     @Autowired
     UserInfoService userInfoService;
 
+    @Autowired
+    DictService dictService;
+
     @RequestMapping("/get-lostdetail")
     public ResponseWrapper getLostDetail(@RequestParam Map<String, Object> params)
     {
@@ -46,6 +51,10 @@ public class LostController {
         ResponseWrapper response = null;
 
         List<LostProperty> lostList = lostService.findLostList();
+        for (LostProperty lostProperty : lostList) {
+            Dictionary dict = dictService.getByCodeAndType(lostProperty.getCategory(), "category");
+            lostProperty.setCategory(dict.getDictName());
+        }
 
         response = ResponseWrapper.markSuccess();
         response.setExtra("lostList", lostList);

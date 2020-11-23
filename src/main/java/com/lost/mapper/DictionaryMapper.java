@@ -18,4 +18,6 @@ public interface DictionaryMapper {
     int updateByPrimaryKey(Dictionary record);
 
     List<Dictionary> findByTypeCode(String codeType);
+
+    Dictionary getByCodeAndType(String code, String codeType);
 }

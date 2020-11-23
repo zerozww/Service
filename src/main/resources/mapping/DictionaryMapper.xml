@@ -14,6 +14,10 @@
   <select id="findByTypeCode" parameterType="java.lang.String" resultMap="BaseResultMap">
     select * from dictionary where code_type = #{codeType}
   </select>
+  
+  <select id="getByCodeAndType" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from dictionary where code = #{code} and code_type = #{codeType}
+  </select>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 

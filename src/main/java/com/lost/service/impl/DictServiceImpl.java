@@ -18,5 +18,10 @@ public class DictServiceImpl implements DictService {
         return dictionaryMapper.findByTypeCode(codeType);
     }
 
+    @Override
+    public Dictionary getByCodeAndType(String code, String codeType){
+        return dictionaryMapper.getByCodeAndType(code, codeType);
+    }
+
 
 }
