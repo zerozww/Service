@@ -38,6 +38,8 @@ public class LostController {
         String lostid = params.get("lostId").toString();
         Integer lostId = Integer.parseInt(lostid);
         LostProperty lostProperty = lostService.findLostById(lostId);
+        Dictionary dict = dictService.getByCodeAndType(lostProperty.getCategory(), "category");
+        lostProperty.setCategory(dict.getDictName());
 
         response = ResponseWrapper.markSuccess();
         response.setExtra("lost", lostProperty);
@@ -87,6 +89,11 @@ public class LostController {
         ResponseWrapper response = null;
 
         List<LostProperty> list = lostService.findUnfinishedLostList();
+
+        for (LostProperty lostProperty : list) {
+            Dictionary dict = dictService.getByCodeAndType(lostProperty.getCategory(), "category");
+            lostProperty.setCategory(dict.getDictName());
+        }
 
         response = ResponseWrapper.markSuccess();
         response.setExtra("lostList", list);
