@@ -17,6 +17,8 @@ public class UserInfo {
 
     private String icon;
 
+    private String email;
+
     public Integer getId() {
         return id;
     }
@@ -79,5 +81,13 @@ public class UserInfo {
 
     public void setIcon(String icon) {
         this.icon = icon == null ? null : icon.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

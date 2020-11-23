@@ -146,6 +146,7 @@ public class UserController {
         userInfo.setSex(params.get("sex").toString());
         userInfo.setTelephone(params.get("telephone").toString());
         userInfo.setSignature(params.get("signature").toString());
+        userInfo.setEmail(params.get("email").toString());
         userInfoService.updateUserInfo(userInfo);
 
         response = ResponseWrapper.markSuccess();
