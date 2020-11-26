@@ -51,8 +51,10 @@ public class LostController {
     public ResponseWrapper getLostList()
     {
         ResponseWrapper response = null;
+        String username = (String) SecurityUtils.getSubject().getPrincipal();
+        UserInfo userInfo = userInfoService.getByUsername(username);
 
-        List<LostProperty> lostList = lostService.findLostList();
+        List<LostProperty> lostList = lostService.findLostList(userInfo);
         for (LostProperty lostProperty : lostList) {
             Dictionary dict = dictService.getByCodeAndType(lostProperty.getCategory(), "category");
             lostProperty.setCategory(dict.getDictName());

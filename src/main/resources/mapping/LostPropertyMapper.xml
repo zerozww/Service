@@ -20,6 +20,10 @@
     select * from lostProperty
   </select>
 
+  <select id="getLostByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from lostProperty where userId = #{userId}
+  </select>
+
   <select id="findAllUnfinishedLost" resultMap="BaseResultMap">
     select * from lostProperty
     where tag = "0"

@@ -3,6 +3,7 @@ package com.lost.service.impl;
 
 import com.lost.entity.LostProperty;
 import com.lost.entity.Thanks;
+import com.lost.entity.UserInfo;
 import com.lost.mapper.LostPropertyMapper;
 import com.lost.mapper.UserInfoMapper;
 import com.lost.service.LostService;
@@ -28,9 +29,9 @@ public class LostServiceImpl implements LostService {
     }
 
     @Override
-    public List<LostProperty> findLostList()
+    public List<LostProperty> findLostList(UserInfo userInfo)
     {
-        List<LostProperty> lostList = lostPropertyMapper.findAll();
+        List<LostProperty> lostList = lostPropertyMapper.getLostByUserId(userInfo.getId());
 
         for (LostProperty lostProperty : lostList){
             lostProperty.setNickName(userInfoMapper.selectByPrimaryKey(lostProperty.getUserId()).getNickname());

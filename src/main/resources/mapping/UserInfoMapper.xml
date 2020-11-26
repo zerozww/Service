@@ -37,10 +37,10 @@
   <insert id="insert" parameterType="com.lost.entity.UserInfo">
     insert into userInfo (id, username, password, 
       nickname, sex, telephone, 
-      signature, icon)
+      signature, icon, email)
     values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{nickname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, 
-      #{signature,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR})
+      #{signature,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.lost.entity.UserInfo">
     insert into userInfo
@@ -66,6 +66,9 @@
       <if test="icon != null">
         icon,
       </if>
+      <if test="email != null">
+        email,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userName != null">
@@ -88,6 +91,9 @@
       </if>
       <if test="icon != null">
         #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -115,6 +121,9 @@
       <if test="icon != null">
         icon = #{icon,jdbcType=VARCHAR},
       </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -126,7 +135,8 @@
       sex = #{sex,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR},
       signature = #{signature,jdbcType=VARCHAR},
-      icon = #{icon,jdbcType=VARCHAR}
+      icon = #{icon,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
