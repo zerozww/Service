@@ -21,7 +21,7 @@
   </select>
 
   <select id="getLostByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select * from lostProperty where userId = #{userId}
+    select * from lostProperty where user_id = #{userId}
   </select>
 
   <select id="findAllUnfinishedLost" resultMap="BaseResultMap">
